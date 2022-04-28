@@ -1691,12 +1691,3 @@ func BenchmarkParallel_8x8x32M(b *testing.B)   { benchmarkParallel(b, 8, 8, 32<<
 func BenchmarkParallel_8x3x1M(b *testing.B) { benchmarkParallel(b, 8, 3, 1<<20) }
 func BenchmarkParallel_8x4x1M(b *testing.B) { benchmarkParallel(b, 8, 4, 1<<20) }
 func BenchmarkParallel_8x5x1M(b *testing.B) { benchmarkParallel(b, 8, 5, 1<<20) }
-
-func TestVandermonde(t *testing.T) {
-	encoder, err := New(10, 4)
-	if err != nil {
-		t.Error(err)
-		return
-	}
-	_ = encoder
-}
