@@ -293,3 +293,164 @@ func TestLRCVerity(t *testing.T) {
 	}
 	fmt.Printf("shards verity result %v, finally data %v\n", ret, data)
 }
+
+func TestLRCGeneratePolicy(t *testing.T) {
+	lrc, err := NewLRC(4, 2, 3)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err := lrc.GeneratePolicy(nil, []int{0})
+	fmt.Println("[case 1] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{4})
+	fmt.Println("[case 2] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{6})
+	fmt.Println("[case 3] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{5})
+	fmt.Println("[case 4] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{3})
+	fmt.Println("[case 5] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{0, 1, 4})
+	fmt.Println("[case 6] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{2, 3, 5})
+	fmt.Println("[case 7] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{0, 1, 7}, []int{2, 3, 5, 6})
+	fmt.Println("[case 8] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{2, 3, 7}, []int{0, 1, 4, 6, 8})
+	fmt.Println("[case 9] nextLoadShards", nextLoadShards, "result: error", err)
+	nextLoadShards, err = lrc.GeneratePolicy([]int{6, 7}, []int{0, 1, 2, 4})
+	fmt.Println("[case 10] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{1, 2})
+	fmt.Println("[case 11] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{3, 5, 6, 7, 8})
+	fmt.Println("[case 12] nextLoadShards", nextLoadShards, "result: error", err)
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{2, 5, 6, 7, 8})
+	fmt.Println("[case 13] nextLoadShards", nextLoadShards, "result: error", err)
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{2, 5, 6, 7})
+	fmt.Println("[case 14] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{}, []int{2, 6, 7, 8})
+	fmt.Println("[case 15] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{2, 3, 4}, []int{0, 1, 7, 8})
+	fmt.Println("[case 16] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{2, 3, 4}, []int{0, 1, 6, 7, 8})
+	fmt.Println("[case 17] nextLoadShards", nextLoadShards, "result: error", err)
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{8})
+	fmt.Println("[case 18] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{0, 8})
+	fmt.Println("[case 19] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{0, 1, 8})
+	fmt.Println("[case 20] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{0, 1, 2, 8})
+	fmt.Println("[case 21] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{0, 1, 2, 5, 8})
+	fmt.Println("[case 22] nextLoadShards", nextLoadShards, "result: error", err)
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 5, 6}, []int{0, 1, 2, 4, 7})
+	fmt.Println("[case 23] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{5, 6}, []int{0, 1, 2, 4, 7})
+	fmt.Println("[case 24] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{0, 2}, []int{1, 3})
+	fmt.Println("[case 25] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{0, 2}, []int{1, 3, 5})
+	fmt.Println("[case 26] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{0, 2}, []int{1, 3, 5, 6})
+	fmt.Println("[case 27] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{0, 2}, []int{1, 3, 5, 6, 7})
+	fmt.Println("[case 28] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{3, 6, 7}, []int{0, 1, 2, 4, 5})
+	fmt.Println("[case 29] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	lrc, err = NewLRC(28, 2, 3)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{1})
+	fmt.Println("[case 30] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{14})
+	fmt.Println("[case 31] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy(nil, []int{1, 15})
+	fmt.Println("[case 32] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+	nextLoadShards, err = lrc.GeneratePolicy([]int{17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29}, []int{1, 15})
+	fmt.Println("[case 33] nextLoadShards", nextLoadShards, "result: error", err)
+	if err != nil {
+		t.Error(err)
+	}
+}
