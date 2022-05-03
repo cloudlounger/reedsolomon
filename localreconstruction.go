@@ -9,6 +9,7 @@ type LRCEncoder interface {
 	LocalRepair(shards [][]byte) error
 	GlobalRepair(shards [][]byte) error
 	Verify(shards [][]byte) (bool, error)
+	GeneratePolicy(availiableShards []int, brokensShards []int) (nextLoadShards []int, err error)
 }
 
 type LRC struct {
@@ -20,6 +21,8 @@ type LRC struct {
 	localRight   Encoder
 	global       Encoder
 	options      options
+
+	policyFactory *PolicyFactory
 }
 
 var ErrLocalShards = errors.New("error local shards, only support 2 local shards in current version")
@@ -87,6 +90,8 @@ func NewLRC(dataShards, localShards int, globalShards int, opts ...Option) (enco
 		localRight:   localRight,
 		global:       global,
 		options:      options,
+
+		policyFactory: NewPolicyFactory(dataShards, localShards, globalShards),
 	}, nil
 }
 
@@ -283,4 +288,8 @@ func (l *LRC) Verify(shards [][]byte) (ret bool, err error) {
 	ret, err = l.global.Verify(globalData)
 	shards[l.dataShards+1] = sencondParity
 	return
+}
+
+func (l *LRC) GeneratePolicy(availiableShards []int, brokensShards []int) (nextLoadShards []int, err error) {
+	return l.policyFactory.GeneratePolicy(availiableShards, brokensShards)
 }
